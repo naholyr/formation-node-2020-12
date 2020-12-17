@@ -1,4 +1,4 @@
 - Repo : https://github.com/naholyr/formation-node-2020-12
 - Émargement : https://extranet-humancoders.dendreo.com/
 - Whiteboard : https://excalidraw.com/#room=c6851f259cf875eeeba0,9govshUnbpxPh4eir7V6VQ
-- Live Share : https://prod.liveshare.vsengsaas.visualstudio.com/join?A5345A9CB84B81AA39DA2B881C61374605F3
+- Live Share : https://prod.liveshare.vsengsaas.visualstudio.com/join?D99164FE9B2F3736AFE4FFA63121AC92D997
