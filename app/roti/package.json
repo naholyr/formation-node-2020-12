@@ -9,7 +9,7 @@
     "test": "mocha --reporter xunit --check-leaks",
     "clean": "rimraf node_modules",
     "watch": "nodemon ./server.js",
-    "watch-test": "mocha --reporter list --check-leaks --watch --growl"
+    "watch-test": "mocha --reporter list --check-leaks --parallel --watch --growl"
   },
   "keywords": [
     "roti",
