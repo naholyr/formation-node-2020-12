@@ -1,5 +1,7 @@
-const { a } = require("./a.cjs");
+const aModule = require("./a.cjs");
 
 exports.c = 42;
 
-console.log("from c", { a });
+setTimeout(() => {
+  console.log("from c", aModule.a);
+}, 0);
