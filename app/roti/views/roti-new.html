@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ROTI</title>
+</head>
+
+<body>
+  <h2>Add a ROTI</h2>
+
+  <% if (errorMessage) { %>
+  <p>
+    <strong>Erreur !</strong>
+    <%= errorMessage %>
+  </p>
+  <% } %>
+
+  <form action="/roti-new" method="post">
+    <input type="text" placeholder="Title" name="title" autofocus>
+    <button>Add this ROTI</button>
+  </form>
+
+  <a href="/">Back home</a>
+</body>
+
+</html>

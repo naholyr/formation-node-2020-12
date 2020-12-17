@@ -1,17 +1,29 @@
-import { findUser } from "../temp-data.js";
+import { findUser, listRotis } from "../temp-data.js";
 
-export const homeHandler = (req, res) => {
+export const homeHandler = async (req, res) => {
   const { username } = req.session;
-  const user = findUser(username);
+  const user = await findUser(username);
+  const rotis = await listRotis();
+
+  const errorMessage = req.session.homeErrorMessage;
+  delete req.session.homeErrorMessage; // One-time usage variable
+
+  /*
+  const roti = rotis[0];
+  const addedFeedback = roti.feedbacks.find((f) => f.user === "user1");
+  const canAddFeedback = !addedFeedback;
+  res.render("roti", { roti, addedFeedback, canAddFeedback });
+  */
+
+  /*
+  res.render("roti-new", { errorMessage });
+  */
 
   res.render("home", {
-    errorMessage: null,
+    errorMessage,
     authenticated: Boolean(user),
     username,
     canAdd: user?.canAdd,
-    rotis: [
-      { title: "Réunion du matin, chagrin", note: 1, id: 1 },
-      { title: "Qu’est-ce qu’on mange ?", note: 4, id: 2 },
-    ],
+    rotis,
   });
 };

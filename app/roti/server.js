@@ -1,8 +1,5 @@
-import { config } from "dotenv";
 import { createServer } from "http";
-import { app } from "./app";
-
-config();
+import { app } from "./app.js";
 
 /* Alternative:
 const fiboRouter = new express.Router();

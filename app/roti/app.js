@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import express from "express";
 import { coucou } from "./lib/routes/coucou.js";
 import { fiboHandler } from "./lib/routes/fibos.js";
@@ -7,6 +8,9 @@ import { homeHandler } from "./lib/routes/home.js";
 import { loginHandler } from "./lib/routes/login.js";
 import bodyParser from "body-parser";
 import session from "express-session";
+
+// See https://www.npmjs.com/package/dotenv-cli for better integration
+config();
 
 export const app = express();
 
