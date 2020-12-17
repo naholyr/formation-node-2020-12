@@ -1,5 +1,5 @@
 import { Worker, isMainThread, parentPort, workerData } from "worker_threads";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 
 // fibo :: (n: number): number
 const fibo = (n) => (n <= 1 ? 1 : fibo(n - 1) + fibo(n - 2));
@@ -11,7 +11,9 @@ export const async = (n) =>
     if (!isMainThread) {
       return reject("Cannot call async fibo in worker");
     }
-    const fileName = fileURLToPath(import.meta.url); // CommonJS: __filename
+    // const fileName = fileURLToPath(import.meta.url); // CommonJS: __filename
+    // Tests fail as they interpret file as commonjs, fuck that shit and just hardcode name
+    const fileName = "./lib/fibo.js";
     const worker = new Worker(fileName, { workerData: n });
     worker.on("message", (message) => {
       console.log(

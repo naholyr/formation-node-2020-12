@@ -12,5 +12,11 @@
     "rules": {
         "no-unused-vars": "error",
         "prettier/prettier": "error"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["**/*.test.js", "**/__mocks__/*.js"],
+            "env": { "jest": true }
+        }
+    ]
 }
