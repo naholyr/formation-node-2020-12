@@ -31,4 +31,5 @@ if (!isMainThread) {
   const n = workerData;
   console.log(`[${process.pid}] Received worker data: ${JSON.stringify(n)}`);
   parentPort?.postMessage(fibo(n));
+  parentPort?.postMessage(fibo(n));
 }

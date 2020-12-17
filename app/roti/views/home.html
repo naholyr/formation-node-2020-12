@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ROTI</title>
+</head>
+
+<body>
+  <% if (errorMessage) { %>
+  <p>
+    <strong>Erreur !</strong>
+    <%= errorMessage %>
+  </p>
+  <% } %>
+  <% if (!authenticated) { %>
+  <form action="/login" method="post">
+    <label>username: </label><input type="text" id="username" name="username" />
+    <label>password: </label><input type="password" id="password" name="password" />
+    <button>Log in</button>
+  </form>
+  <% } else { %>
+  <p>Bonjour, <%= username %> (<a href="/logout">déconnexion</a>)</p>
+  <% } %>
+  <h2>ROTIs</h2>
+  <ul>
+    <% rotis.forEach(roti => { %>
+    <li>
+      <section class="roti">
+        <h3>
+          <% if (authenticated) { %>
+          <a href="/roti/<%= roti.id %>"><%= roti.title %></a>
+          <% } else { %>
+          <span><%= roti.title %></span>
+          <% } %>
+        </h3>
+        <%=  '★'.repeat(roti.note) %><%= '☆'.repeat(4 - roti.note) %>
+      </section>
+    </li>
+    <% }) %>
+  </ul>
+  <% if (canAdd) { %>
+  <a href="/roti-new">Ajouter un nouveau roti</a>
+  <% } %>
+</body>
+
+</html>
