@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import chai from "chai";
 
 describe("Dumb things", () => {
