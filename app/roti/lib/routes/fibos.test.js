@@ -14,4 +14,10 @@ describe("Request handler", () => {
     //expect(res.send).toHaveBeenCalledWith({ input: 5, output: 42 });
     expect(res.send).toHaveBeenCalledWith({ input: 5, output: 8 });
   });
+
+  test("fibo (snapshot)", async () => {
+    const { req, res } = mockReqRes({ params: { number: "6" } });
+    await fiboHandler(req, res);
+    expect(res.send.mock.calls).toMatchSnapshot();
+  });
 });

@@ -1,6 +1,5 @@
-
 export default {
-  "transform": {
-    "\\.m?jsx?$": "jest-esm-transformer"
+  transform: {
+    "\\.m?jsx?$": "jest-esm-transformer",
   },
 };

@@ -4,6 +4,7 @@ export const mockResponse = () => {
   const res = {};
   res.status = jest.fn().mockReturnValue(res);
   res.send = jest.fn();
+  res.render = jest.fn();
   return res;
 };
 

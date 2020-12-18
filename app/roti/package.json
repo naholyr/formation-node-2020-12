@@ -6,11 +6,14 @@
   "description": "ROTI",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter xunit --check-leaks",
+    "test:mocha": "mocha --reporter xunit --check-leaks",
+    "test:jest": "cross-env CI=1 jest",
+    "test": "run-s test:*",
     "clean": "rimraf node_modules",
-    "watch": "nodemon ./server.js",
+    "watch-server": "nodemon ./server.js",
     "watch-test:mocha": "mocha --reporter list --check-leaks --parallel --watch --growl",
-    "watch-test:jest": "jest --watch"
+    "watch-test:jest": "jest --watch",
+    "watch": "run-p -l watch-server watch-test:*"
   },
   "keywords": [
     "roti",
@@ -22,11 +25,12 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "consolidate": "^0.16.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "uuid": "^8.3.2"
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",

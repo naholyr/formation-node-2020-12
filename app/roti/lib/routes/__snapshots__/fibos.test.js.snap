@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Request handler fibo (snapshot) 1`] = `
+Array [
+  Array [
+    Object {
+      "input": 6,
+      "output": 13,
+    },
+  ],
+]
+`;

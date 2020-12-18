@@ -32,9 +32,22 @@ app.use(
 );
 app.use(logMiddleware);
 
-// create routes
-app.get("/", homeHandler);
-app.post("/login", loginHandler);
+const asyncHandler = (handler) => async (req, res, next) => {
+  try {
+    await handler(req, res);
+  } catch (err) {
+    next(err);
+  }
+};
 
-app.get("/coucou", coucou);
-app.get("/fibo/:number([0-9]+)", fiboHandler);
+// create routes
+app.get("/", asyncHandler(homeHandler));
+app.post("/login", asyncHandler(loginHandler));
+
+app.get("/coucou", asyncHandler(coucou));
+app.get("/fibo/:number([0-9]+)", asyncHandler(fiboHandler));
+
+app.use((err, req, res, next) => {
+  res.status(500).send("Error: " + err.message);
+  next(err);
+});
