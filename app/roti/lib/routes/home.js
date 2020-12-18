@@ -5,6 +5,7 @@ export const homeHandler = async (req, res) => {
   const user = await findUser(username);
   const rotis = await listRotis();
 
+  // const errorMessage = req.flash("homeErrorMessage"); // TODO API Flash variable in middleware
   const errorMessage = req.session.homeErrorMessage;
   delete req.session.homeErrorMessage; // One-time usage variable
 

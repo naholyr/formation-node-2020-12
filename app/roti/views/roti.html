@@ -9,6 +9,12 @@
 <body>
   <h2><%= roti.title %></h2>
 
+  <% if (successMessage) { %>
+  <p>Feedback added successfully!</p>
+  <% } else if (errorMessage) { %>
+  <p>Error! <%= errorMessage %></p>
+  <% } %>
+
   <% if (canAddFeedback) { %>
   <h3>Add your feedback</h3>
   <form action="/roti/<%= roti.id %>/add-feedback" method="post">

@@ -11,7 +11,7 @@ const users = [
 
 const rotis = [
   {
-    id: uuid(),
+    id: "272b7afe-b505-48e8-bcbf-db5df400bfdf",
     title: "Les bases de la théories",
     ranking: 2,
     feedbacks: [
@@ -21,7 +21,7 @@ const rotis = [
     ],
   },
   {
-    id: uuid(),
+    id: "272b7afe-b505-48e8-bcbf-db5df400bfef",
     title: "Augmentations",
     ranking: 4,
     feedbacks: [
@@ -35,7 +35,7 @@ const rotis = [
     ],
   },
   {
-    id: uuid(),
+    id: "272b7afe-b505-48e8-bcbf-db5df400cfdf",
     title: "Télé-travail",
     ranking: 3,
     feedbacks: [
@@ -50,6 +50,9 @@ export const findUser = async (username) =>
 export const listRotis = async () => rotis;
 
 export const addRoti = async (title) => {
+  if (!title || title.length < 5) {
+    throw new Error("ROTI_TITLE_TOO_SHORT");
+  }
   const roti = { id: uuid(), title, ranking: null, feedbacks: [] };
   rotis.push(roti);
   return roti;
@@ -57,12 +60,21 @@ export const addRoti = async (title) => {
 
 export const findRoti = async (id) => rotis.find((r) => r.id === id);
 
-export const addFeedback = async (id, ranking, comment = null) => {
+export const addFeedback = async ({ id, user, ranking, comment = null }) => {
   const roti = await findRoti(id);
   if (!roti) {
     throw new Error("ROTI_NOT_FOUND");
   }
-  const feedback = { ranking, comment };
+  if (roti.feedbacks.some((f) => f.user === user)) {
+    throw new Error("ROTI_FEEDBACK_ALREADY_EXIST");
+  }
+  if (!user) {
+    throw new Error("ROTI_FEEDBACK_USER_REQUIRED");
+  }
+  if (ranking !== 1 && ranking !== 2 && ranking !== 3 && ranking !== 4) {
+    throw new Error("ROTI_FEEDBACK_INVALID_RANKING");
+  }
+  const feedback = { ranking, comment, user };
   roti.feedbacks.push(feedback);
   roti.ranking = Math.round(
     roti.feedbacks.reduce((n, f) => n + f.ranking, 0) / roti.feedbacks.length

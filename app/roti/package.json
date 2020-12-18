@@ -11,6 +11,7 @@
     "test": "run-s test:*",
     "clean": "rimraf node_modules",
     "watch-server": "nodemon ./server.js",
+    "watch-server:debug": "nodemon --exec 'node --inspect' ./server.js",
     "watch-test:mocha": "mocha --reporter list --check-leaks --parallel --watch --growl",
     "watch-test:jest": "jest --watch",
     "watch": "run-p -l watch-server watch-test:*"
