@@ -14,6 +14,13 @@ import {
   findRotiHandler,
   addFeedBackHander,
 } from "./lib/routes/roti.js";
+import connectRedis from "connect-redis";
+import Redis from "ioredis";
+
+// Session-store
+const RedisStore = connectRedis(session);
+const redisClient = new Redis({ host: "127.0.0.1", port: 6379 });
+const store = new RedisStore({ client: redisClient });
 
 // See https://www.npmjs.com/package/dotenv-cli for better integration
 config();
@@ -31,6 +38,7 @@ app.use(bodyParser.json()); // REST clients
 app.use(bodyParser.urlencoded({ extended: true })); // HTML forms
 app.use(
   session({
+    store,
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,

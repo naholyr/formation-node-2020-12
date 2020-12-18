@@ -46,8 +46,10 @@
 
   <a href="/">Back home</a>
 
+  <!-- socket.io-client -->
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/main.js"></script>
-  <script>listenROTI(<% - JSON.stringify(roti.id) %>)</script>
+  <script>listenROTI("<%= roti.id %>")</script>
 </body>
 
 </html>

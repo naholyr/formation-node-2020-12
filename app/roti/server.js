@@ -1,4 +1,5 @@
 import { createServer } from "http";
+import { Server as WSServer } from "socket.io";
 import { app } from "./app.js";
 
 /* Alternative:
@@ -38,4 +39,43 @@ server.listen(port, () => {
 server.on("error", (err) => {
   console.error(err);
   process.exit(1);
+});
+
+// WebSocket
+
+const io = new WSServer(server);
+
+process.on("broadcastWSEvent", (room, event, ...args) => {
+  io.to(room).emit(event, ...args);
+});
+
+io.on("connection", (socket) => {
+  // socket.emit('name', ...args)
+  // socket.on('name', (...args, cb?) => {})
+  // socket.volatile.emit(...)
+  // io.emit(...)
+  // socket.broadcast.emit(...)
+
+  // socket.join('room')
+  // socket.leave('room')
+  // io.to('room').emit(...)
+
+  socket.on("subscribe-home", () => {
+    socket.join("home");
+  });
+
+  socket.on("subscribe-roti", (id) => {
+    console.log({ id });
+    socket.join("roti-" + id);
+  });
+
+  socket.emit("coucou", process.pid);
+
+  socket.on("time", () => {
+    socket.emit("timeResponse", Date.now());
+  });
+
+  socket.on("fibo", (n, cb) => {
+    cb(8);
+  });
 });

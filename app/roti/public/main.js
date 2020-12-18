@@ -1,11 +1,41 @@
 // TODO front JS
+/* globals io:false */
 
-const listenROTI = (id) => {
-  // TODO subscribe to changes on a specific ROTI
-  // Refresh UI when a change occurs
+const socket = io.connect();
+
+// socket.emit('name', ...args, cb?)
+// socket.on('name', (...args) => {})
+// specific events: 'connect', 'reconnect', 'reconnecting', 'error', 'ping', 'pong', …
+
+socket.on("coucou", (pid) => {
+  console.log("Coucou from server", pid);
+  setTimeout(() => {
+    socket.emit("time");
+    socket.emit("time");
+    socket.emit("time");
+  });
+});
+
+socket.on("timeResponse", console.log);
+
+setTimeout(() => {
+  socket.emit("fibo", 5, (n) => {
+    console.log("fibo(%s) = %s", 5, n);
+  });
+}, 500);
+
+window.listenROTI = (id) => {
+  socket.emit("subscribe-roti", id);
+  socket.on("newFeedback", (feedback) => {
+    console.log("New feedback", feedback);
+    document.location.reload();
+  });
 };
 
-const listenROTIsList = () => {
-  // TODO subscribe to changes on the ROTIs list (added/removed)
-  // Refresh UI when a change occurs
+window.listenROTIsList = () => {
+  socket.emit("subscribe-home");
+  socket.on("newRoti", (roti) => {
+    console.log("New roti", roti);
+    document.location.reload();
+  });
 };
