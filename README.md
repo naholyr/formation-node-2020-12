@@ -19,6 +19,7 @@ Pré-requis :
 - Serveur Redis
   * Pour Windows [voir ServiceStack/redis-windows](https://github.com/ServiceStack/redis-windows)
   * Avec Docker : `docker run --name redis-formation -p 6379:6379 redis -d` puis `docker [start|stop|rm] redis-formation`
+    * Client : `docker exec -it redis-formation redis-cli`
 
 #### Démarrage
 

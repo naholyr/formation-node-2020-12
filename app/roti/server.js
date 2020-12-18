@@ -1,6 +1,7 @@
 import { createServer } from "http";
 import { Server as WSServer } from "socket.io";
 import { app } from "./app.js";
+import ioRedis from "socket.io-redis";
 
 /* Alternative:
 const fiboRouter = new express.Router();
@@ -28,13 +29,7 @@ const requestHandler = async (req, res) => {
 };
 */
 
-const server = createServer(app);
-
-const port = process.env.PORT;
-
-server.listen(port, () => {
-  console.log(`Server ready: http://127.0.0.1:${port}`);
-});
+export const server = createServer(app);
 
 server.on("error", (err) => {
   console.error(err);
@@ -44,6 +39,13 @@ server.on("error", (err) => {
 // WebSocket
 
 const io = new WSServer(server);
+
+io.adapter(
+  ioRedis({
+    host: "localhost",
+    port: 6379,
+  })
+);
 
 process.on("broadcastWSEvent", (room, event, ...args) => {
   io.to(room).emit(event, ...args);

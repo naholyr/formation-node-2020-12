@@ -33,7 +33,7 @@ app.set("view engine", "html");
 app.set("views", "views"); // current working directory / views
 
 // Middlewares
-app.use(express.static("public")); // TODO disable in production
+app.use(express.static("public"));
 app.use(bodyParser.json()); // REST clients
 app.use(bodyParser.urlencoded({ extended: true })); // HTML forms
 app.use(
